@@ -1,0 +1,7 @@
+<nav>
+  <ul class="nav-bar">
+    <li *ngFor="let item of navBar?.items; let i = index; trackBy: trackByFn">
+      <app-bar-nav-item [item]="item"></app-bar-nav-item>
+    </li>
+  </ul>
+</nav>

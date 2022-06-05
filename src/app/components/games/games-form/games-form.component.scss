@@ -1,0 +1,59 @@
+.games-form {
+  display: flex;
+  flex-direction: column;
+
+  .form {
+    .form-control {
+      &.invalid {
+        border-color: #9c1c28;
+        border-style: solid;
+      }
+      &.read-only {
+        background: #eee;
+      }
+    }
+
+    .invalid-message {
+      width: 100%;
+      margin-top: 0.25rem;
+      font-size: 0.875em;
+      color: #9c1c28;
+    }
+
+    label.form-label,
+    input.form-control,
+    select.form-select {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      font-size: 1.25rem;
+    }
+
+    input.form-control-checkbox {
+      width: 20px;
+      height: 20px;
+    }
+
+    select {
+      padding: 1px 2px;
+    }
+
+    .field-input {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        box-sizing: border-box !important;
+      }
+    }
+
+    .form-item {
+      padding: 10px;
+    }
+  }
+
+  .form-buttons {
+    text-align: center;
+    padding: 30px 0;
+  }
+}

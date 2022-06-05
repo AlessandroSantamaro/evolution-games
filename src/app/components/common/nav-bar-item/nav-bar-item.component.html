@@ -1,0 +1,8 @@
+<ng-container *ngIf="item">
+  <a
+    routerLink="{{ item.routerLink }}"
+    class="nav-bar-item"
+    [ngClass]="isActive ? 'active' : ''"
+    >{{ item.label }}</a
+  >
+</ng-container>

@@ -1,0 +1,19 @@
+a {
+  &.nav-bar-item {
+    height: 100%;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    color: #9d9d9d;
+    text-decoration: none;
+
+    &.active {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}

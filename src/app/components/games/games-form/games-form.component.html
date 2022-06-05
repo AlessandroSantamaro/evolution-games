@@ -1,0 +1,209 @@
+<div class="games-form">
+  <span class="sr-only" aria-live="polite">{{genericErrorMessage}}</span>
+  <form class="form" [formGroup]="gameForm" (ngSubmit)="submit()" novalidate>
+    <ng-container
+      *ngFor="let item of gameFormItems; let i = index; trackBy: trackByFn"
+    >
+      <ng-container [ngSwitch]="item.type">
+        <ng-container
+          *ngSwitchCase="'number'"
+          [ngTemplateOutlet]="numberInput"
+          [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+        ></ng-container>
+        <ng-container
+          *ngSwitchCase="'text'"
+          [ngTemplateOutlet]="textInput"
+          [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+        ></ng-container>
+        <ng-container
+          *ngSwitchCase="'checkbox'"
+          [ngTemplateOutlet]="checkboxInput"
+          [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+        ></ng-container>
+        <ng-container
+          *ngSwitchCase="'dropdown'"
+          [ngTemplateOutlet]="dropdownInput"
+          [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+        ></ng-container>
+        <ng-container
+          *ngSwitchCase="'datetime-local'"
+          [ngTemplateOutlet]="dateInput"
+          [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+        ></ng-container>
+      </ng-container>
+    </ng-container>
+
+    <div class="form-buttons">
+      <app-button
+        [type]="'button'"
+        [label]="'Back'"
+        (onClick)="backToGame()"
+      ></app-button>
+      <app-button
+        [type]="'submit'"
+        [label]="submitLabel"
+        [style]="updateButtonStyle"
+        (onClick)="submit()"
+      ></app-button>
+    </div>
+  </form>
+</div>
+
+<ng-template #numberInput let-item="item" let-form="form">
+  <div [formGroup]="form" class="form-item">
+    <label class="form-label" [for]="item.id"
+      >{{ item.label }} {{ item.required ? "*" : "" }}</label
+    >
+    <div class="field-input">
+      <input
+        type="number"
+        [id]="item.id"
+        class="form-control"
+        [formControlName]="item.id"
+        [required]="item.required"
+        [readOnly]="item.readOnly"
+        [ngClass]="item.readOnly ? 'read-only' : ''"
+      />
+      <ng-container
+        [ngTemplateOutlet]="errorMessages"
+        [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #textInput let-item="item" let-form="form">
+  <div [formGroup]="form" class="form-item">
+    <label class="form-label" [for]="item.id"
+      >{{ item.label }} {{ item.required ? "*" : "" }}</label
+    >
+    <div class="field-input">
+      <input
+        type="text"
+        [id]="item.id"
+        class="form-control"
+        [formControlName]="item.id"
+        [required]="item.required"
+        [readOnly]="item.readOnly"
+        [class.read-only]="item.readOnly"
+        [class.valid]="
+          form.get(item.id).valid &&
+          (form.get(item.id).dirty || form.get(item.id).touched)
+        "
+        [class.invalid]="
+          form.get(item.id).invalid &&
+          (form.get(item.id).dirty || form.get(item.id).touched)
+        "
+      />
+
+      <ng-container
+        [ngTemplateOutlet]="errorMessages"
+        [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #dateInput let-item="item" let-form="form">
+  <div [formGroup]="form" class="form-item">
+    <label class="form-label" [for]="item.id"
+      >{{ item.label }} {{ item.required ? "*" : "" }}</label
+    >
+    <div class="field-input">
+      <input
+        type="datetime-local"
+        [id]="item.id"
+        class="form-control"
+        [formControlName]="item.id"
+        [required]="item.required"
+        [readOnly]="item.readOnly"
+        [ngClass]="item.readOnly ? 'read-only' : ''"
+      />
+      <ng-container
+        [ngTemplateOutlet]="errorMessages"
+        [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #checkboxInput let-item="item" let-form="form">
+  <div [formGroup]="form" class="form-item">
+    <label class="form-label" [for]="item.id"
+      >{{ item.label }} {{ item.required ? "*" : "" }}</label
+    >
+    <input
+      type="checkbox"
+      class="form-control-checkbox"
+      [formControlName]="item.id"
+      [id]="item.id"
+      [required]="item.required"
+      [readOnly]="item.readOnly"
+      [ngClass]="item.readOnly ? 'read-only' : ''"
+    />
+
+    <ng-container
+      [ngTemplateOutlet]="errorMessages"
+      [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+    ></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #dropdownInput let-item="item" let-form="form">
+  <div [formGroup]="form" class="form-item">
+    <label class="form-label" [for]="item.id"
+      >{{ item.label }} {{ item.required ? "*" : "" }}</label
+    >
+    <div class="field-input">
+      <select
+        class="form-select"
+        [id]="item.id"
+        [formControlName]="item.id"
+        [required]="item.required"
+      >
+        <option
+          *ngFor="let opt of item.options; trackBy: trackByFn"
+          [value]="opt.value"
+        >
+          {{ opt.label }}
+        </option>
+      </select>
+
+      <ng-container
+        [ngTemplateOutlet]="errorMessages"
+        [ngTemplateOutletContext]="{ item: item, form: gameForm }"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #errorMessages let-item="item" let-form="form">
+  <div
+    *ngIf="
+      form.get(item.id).invalid &&
+      form.get(item.id).errors &&
+      (form.get(item.id).dirty || form.get(item.id).touched)
+    "
+  >
+    <span
+      class="invalid-message"
+      *ngIf="form.get(item.id).hasError('required')"
+    >
+      This field is required.
+    </span>
+    <span
+      class="invalid-message"
+      *ngIf="form.get(item.id).hasError('minlength')"
+    >
+      The minimum length for this field is
+      {{ form.get(item.id).errors.minlength.requiredLength }} characters.
+    </span>
+    <span
+      class="invalid-message"
+      *ngIf="form.get(item.id).hasError('maxlength')"
+    >
+      The maximum length for this field is
+      {{ form.get(item.id).errors.maxlength.requiredLength }} characters.
+    </span>
+  </div>
+</ng-template>

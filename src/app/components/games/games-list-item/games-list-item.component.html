@@ -1,0 +1,39 @@
+<ng-container *ngIf="item">
+  <td *ngIf="tableHeaders['id'] !== undefined">
+    {{ item.id || "-" }}
+  </td>
+  <td *ngIf="tableHeaders['name'] !== undefined">
+    {{ item.name || "-" }}
+  </td>
+  <td *ngIf="tableHeaders['game_reporting_name'] !== undefined">
+    {{ item.game_reporting_name || "-" }}
+  </td>
+  <td *ngIf="tableHeaders['game_family'] !== undefined">
+    {{ item.game_family || "-" }}
+  </td>
+  <td *ngIf="tableHeaders['branded'] !== undefined">
+    {{ item.branded | checkedFormat }}
+  </td>
+  <td *ngIf="tableHeaders['jackpot'] !== undefined">
+    {{ item.jackpot | checkedFormat }}
+  </td>
+  <td *ngIf="tableHeaders['uk_enabled'] !== undefined">
+    {{ item.uk_enabled | checkedFormat }}
+  </td>
+  <td *ngIf="tableHeaders['invalid'] !== undefined">
+    {{ item.invalid | checkedFormat }}
+  </td>
+  <td *ngIf="tableHeaders['updated_at'] !== undefined">
+    {{ item.updated_at | date: "short" }}
+  </td>
+  <td *ngIf="tableHeaders['updated_by_username'] !== undefined">
+    {{ item.updated_by_username || "-" }}
+  </td>
+  <td>
+    <app-button
+      [type]="'button'"
+      [label]="'Edit'"
+      (onClick)="editItem(item)"
+    ></app-button>
+  </td>
+</ng-container>

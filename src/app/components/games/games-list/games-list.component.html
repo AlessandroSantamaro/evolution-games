@@ -1,0 +1,31 @@
+<div class="games-list">
+  <table class="games-table" cellspacing="0">
+    <tr>
+      <ng-container
+        *ngFor="let item of tableHeadersKeys; let i = index; trackBy: trackByFn"
+      >
+        <th>{{ item.label }}</th>
+      </ng-container>
+    </tr>
+
+    <ng-container
+      *ngFor="let item of tableRowItems; let i = index; trackBy: trackByFn"
+    >
+      <tr
+        app-games-list-item
+        [item]="item"
+        [tableHeaders]="tableHeaders"
+        (onEditItem)="goToEdit(item)"
+      ></tr>
+    </ng-container>
+  </table>
+
+  <div class="table-buttons">
+    <app-button
+      [type]="'button'"
+      [label]="'Add new item'"
+      [style]="addButtonStyle"
+      (onClick)="goToAdd()"
+    ></app-button>
+  </div>
+</div>
